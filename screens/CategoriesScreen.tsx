@@ -1,18 +1,30 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { NavigationStackScreenProps } from 'react-navigation-stack';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ListRenderItemInfo } from 'react-native';
+import { NavigationStackOptions, NavigationStackScreenProps } from 'react-navigation-stack';
+import { CATEGORIES } from '../data/dummy-data';
+import { Category } from '../models/category';
+import CategoryItem from '../components/CategoryItem/CategoryItem';
 
 const CategoriesScreen = (props: NavigationStackScreenProps) => {
 
-    const navigate = () => {
-        props.navigation.navigate({ routeName: 'Meals' });
+    const navigate = (category: Category) => {
+        props.navigation.navigate({
+            routeName: 'Meals',
+            params: {
+                category: category
+            }
+        });
+    }
+
+    const renderCategoryItem = (itemInfo: ListRenderItemInfo<Category>) => {
+        return <CategoryItem category={ itemInfo.item } onSelect={ () => navigate(itemInfo.item) }/>;
     }
 
     return (
-        <View style={ styles.screen }>
-            <Text>CategoriesScreen</Text>
-            <Button title="Go to Meals" onPress={ navigate }/>
-        </View>
+        <FlatList numColumns={ 2 }
+                  data={ CATEGORIES }
+                  renderItem={ renderCategoryItem }
+        />
     );
 };
 
@@ -23,5 +35,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }
 });
+
+CategoriesScreen.navigationOptions = {
+    headerTitle: 'Meal Categories'
+} as NavigationStackOptions
 
 export default CategoriesScreen;
