@@ -1,25 +1,35 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ListRenderItemInfo } from 'react-native';
 import { NavigationStackOptions, NavigationStackScreenProps } from 'react-navigation-stack';
 import { Category } from '../models/category';
+import { MEALS } from '../data/dummy-data';
+import { Meal } from '../models/meal';
+import MealItem from '../components/MealItem/MealItem';
 
 const MealsScreen = (props: NavigationStackScreenProps) => {
 
     const category: Category = props.navigation.getParam('category');
+    const meals: Meal[] = MEALS.filter(meal => meal.categoryIds.indexOf(category.id) > -1);
 
-    const navigate = () => {
-        props.navigation.navigate({ routeName: 'MealDetails' });
+    const selectMeal = (meal: Meal) => {
+        props.navigation.navigate({
+            routeName: 'MealDetails',
+            params: {
+                meal: meal
+            }
+        });
     };
 
-    const goBack = () => {
-        props.navigation.pop();
-    };
+    const renderMealItem = (itemInfo: ListRenderItemInfo<Meal>) => {
+        return <MealItem meal={ itemInfo.item } onSelect={ () => selectMeal(itemInfo.item) }/>
+    }
 
     return (
         <View style={ styles.screen }>
-            <Text>{ category?.title }</Text>
-            <Button title="Go to MealDetails" onPress={ navigate }/>
-            <Button title="GoBack" onPress={ goBack }/>
+            <FlatList style={ styles.mealsList }
+                      data={ meals }
+                      renderItem={ renderMealItem }
+            />
         </View>
     );
 };
@@ -29,6 +39,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    mealsList: {
+        width: '100%',
+        padding: 10
     }
 });
 
