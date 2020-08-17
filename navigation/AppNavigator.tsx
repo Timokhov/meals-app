@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator, NavigationStackOptions } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { createAppContainer, NavigationRoute, NavigationRouteConfigMap } from 'react-navigation';
@@ -16,17 +16,26 @@ import {
 } from 'react-navigation-material-bottom-tabs/lib/typescript/src/types';
 import { NavigationBottomTabOptions } from 'react-navigation-tabs/lib/typescript/src/types';
 
+const defaultStackNavigationOptions: NavigationStackOptions = {
+    headerStyle: {
+        backgroundColor: Platform.OS === 'android' ? colors.primaryColor : ''
+    },
+    headerTintColor: Platform.OS === 'android' ? 'white' : colors.primaryColor
+}
+
 const MealsNavigator = createStackNavigator({
     Categories: CategoriesScreen,
     Meals: MealsScreen,
     MealDetails: MealDetailsScreen
 }, {
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? colors.primaryColor : ''
-        },
-        headerTintColor: Platform.OS === 'android' ? 'white' : colors.primaryColor
-    }
+    defaultNavigationOptions: defaultStackNavigationOptions
+});
+
+const FavoritesNavigator = createStackNavigator({
+    Favorites: FavoriteScreen,
+    MealDetails: MealDetailsScreen
+}, {
+    defaultNavigationOptions: defaultStackNavigationOptions
 });
 
 const tabsScreenConfig: NavigationRouteConfigMap<NavigationMaterialBottomTabOptions | NavigationBottomTabOptions, NavigationTabProp<NavigationRoute, any>> = {
@@ -40,7 +49,7 @@ const tabsScreenConfig: NavigationRouteConfigMap<NavigationMaterialBottomTabOpti
         }
     },
     Favorites: {
-        screen: FavoriteScreen,
+        screen: FavoritesNavigator,
         navigationOptions: {
             tabBarIcon: tabInfo => {
                 return <Ionicons name='ios-star' size={ 25 } color={ tabInfo.tintColor }/>
@@ -55,7 +64,8 @@ const AppTabNavigator = Platform.OS === 'android'
         tabsScreenConfig,
         {
             activeColor: 'white',
-            shifting: true
+            shifting: true,
+            resetOnBlur: true
         }
     )
     : createBottomTabNavigator(
