@@ -1,23 +1,31 @@
 import React from 'react';
-import { NavigationStackOptions, NavigationStackScreenProps } from 'react-navigation-stack';
-import MealsList from '../components/MealsList/MealsList';
-import { MEALS } from '../data/dummy-data';
-import { Meal } from '../models/meal';
+import { View, Text, StyleSheet } from 'react-native';
+import { NavigationStackOptions } from 'react-navigation-stack';
+import CategoriesScreen from './CategoriesScreen';
 import { NavigationDrawerScreenProps } from 'react-navigation-drawer';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/CustomHeaderButton/CustomHeaderButton';
 
-const FavoriteScreen = (props: NavigationStackScreenProps) => {
-    const favMeals: Meal[] = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2');
+const FiltersScreen = () => {
 
     return (
-        <MealsList listData={ favMeals } navigation={ props.navigation }/>
+        <View style={ styles.screen }>
+            <Text>FilterScreen</Text>
+        </View>
     );
 };
 
-FavoriteScreen.navigationOptions = (navigationData: NavigationDrawerScreenProps) => {
+const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+});
+
+FiltersScreen.navigationOptions = (navigationData: NavigationDrawerScreenProps) => {
     return {
-        headerTitle: 'Your Favorites',
+        headerTitle: 'Filters',
         headerLeft: () => {
             return (
                 <HeaderButtons HeaderButtonComponent={ CustomHeaderButton }>
@@ -27,6 +35,6 @@ FavoriteScreen.navigationOptions = (navigationData: NavigationDrawerScreenProps)
             );
         }
     } as NavigationStackOptions
-};
+}
 
-export default FavoriteScreen;
+export default FiltersScreen;

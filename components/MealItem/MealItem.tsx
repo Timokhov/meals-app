@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback, ImageBackground } from 'react-native';
 import { Meal } from '../../models/meal';
+import DefaultText from '../DefaultText/DefaultText';
 
 interface MealItemProps {
     meal: Meal,
@@ -21,9 +22,9 @@ const MealItem = (props: MealItemProps) => {
                         </ImageBackground>
                     </View>
                     <View style={{ ...styles.mealRow, ...styles.mealDetails }}>
-                        <Text>{ props.meal.duration }m</Text>
-                        <Text>{ props.meal.complexity.toUpperCase() }</Text>
-                        <Text>{ props.meal.affordability.toUpperCase() }</Text>
+                        <DefaultText>{ props.meal.duration }m</DefaultText>
+                        <DefaultText>{ props.meal.complexity.toUpperCase() }</DefaultText>
+                        <DefaultText>{ props.meal.affordability.toUpperCase() }</DefaultText>
                     </View>
                 </View>
             </TouchableNativeFeedback>
