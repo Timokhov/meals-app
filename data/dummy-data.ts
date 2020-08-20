@@ -2,16 +2,16 @@ import { Category } from '../models/category';
 import { Meal } from '../models/meal';
 
 export const CATEGORIES: Category[] = [
-    new Category('c1', 'Italian', '#f5428d'),
-    new Category('c2', 'Quick & Easy', '#f54242'),
-    new Category('c3', 'Hamburgers', '#f5a442'),
-    new Category('c4', 'German', '#f5d142'),
-    new Category('c5', 'Light & Lovely', '#368dff'),
-    new Category('c6', 'Exotic', '#41d95d'),
-    new Category('c7', 'Breakfast', '#9eecff'),
-    new Category('c8', 'Asian', '#b9ffb0'),
-    new Category('c9', 'French', '#ffc7ff'),
-    new Category('c10', 'Summer', '#47fced')
+    new Category('c1', 'Italian', 'https://images.unsplash.com/photo-1498579150354-977475b7ea0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+    new Category('c4', 'German', 'https://images.unsplash.com/photo-1568486504489-9e70d75313b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+    new Category('c9', 'French', 'https://images.unsplash.com/photo-1571157577110-493b325fdd3d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+    new Category('c8', 'Asian', 'https://images.unsplash.com/photo-1534256958597-7fe685cbd745?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+    new Category('c7', 'Breakfast', 'https://images.unsplash.com/photo-1536511657325-a3f3226b3bbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+    new Category('c3', 'Hamburgers', 'https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+    new Category('c6', 'Exotic', 'https://images.unsplash.com/photo-1493807742375-fbc46d996e8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+    new Category('c2', 'Quick & Easy', 'https://images.unsplash.com/photo-1587015566802-5dc157c901cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+    new Category('c5', 'Light & Lovely', 'https://images.unsplash.com/photo-1569760142069-bc6838de16c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+    new Category('c10', 'Summer', 'https://images.unsplash.com/photo-1563169372-eb64c121f9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
 ];
 
 export const MEALS: Meal[] = [

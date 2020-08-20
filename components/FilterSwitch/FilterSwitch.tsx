@@ -11,7 +11,7 @@ const FilterSwitch = (props: FilterSwitchProps) => {
 
     return (
         <View style={ styles.filterContainer }>
-            <Text>{ props.label }</Text>
+            <Text style={ styles.label }>{ props.label }</Text>
             <Switch value={ props.value }
                     onValueChange={ props.onValueChange }
             />
@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '80%',
         marginVertical: 15
+    },
+    label: {
+        fontFamily: 'open-sans',
+        fontSize: 16
     }
 });
 

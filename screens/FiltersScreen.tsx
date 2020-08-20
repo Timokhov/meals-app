@@ -42,7 +42,6 @@ const FiltersScreen = (props: NavigationDrawerScreenProps) => {
 
     return (
         <View style={ styles.screen }>
-            <Text style={ styles.title }>Available Filters / Restrictions</Text>
             <FilterSwitch label="Gluten-free"
                           value={ isGlutenFree }
                           onValueChange={ (newValue) => setGlutenFree(newValue) }
@@ -67,13 +66,6 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         alignItems: 'center'
-    },
-    title: {
-        fontFamily: 'open-sans-bold',
-        fontSize: 22,
-        margin: 20,
-        textAlign: 'center',
-        width: '100%'
     }
 });
 

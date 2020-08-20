@@ -6,6 +6,7 @@ import { Meal } from '../models/meal';
 import CustomHeaderButton from '../components/CustomHeaderButton/CustomHeaderButton';
 import DefaultText from '../components/DefaultText/DefaultText';
 import ListItem from '../components/ListItem/ListItem';
+import MealDetails from '../components/MealDetails/MealDetails';
 
 const MealDetailsScreen = (props: NavigationStackScreenProps) => {
 
@@ -14,10 +15,8 @@ const MealDetailsScreen = (props: NavigationStackScreenProps) => {
     return (
         <ScrollView>
             <Image style={ styles.image } source={{ uri: meal.imageUrl }}/>
-            <View style={ styles.details }>
-                <DefaultText>{ meal.duration }m</DefaultText>
-                <DefaultText>{ meal.complexity.toUpperCase() }</DefaultText>
-                <DefaultText>{ meal.affordability.toUpperCase() }</DefaultText>
+            <View style={ styles.detailsContainer }>
+                <MealDetails meal={ meal }/>
             </View>
             <Text style={ styles.title }>Ingredients</Text>
             {
@@ -44,10 +43,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 200
     },
-    details: {
-        flexDirection: 'row',
-        padding: 15,
-        justifyContent: 'space-around'
+    detailsContainer: {
+        padding: 15
     },
     title: {
         fontFamily: 'open-sans-bold',
