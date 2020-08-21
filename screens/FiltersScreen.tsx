@@ -16,8 +16,6 @@ interface Filters {
 
 const FiltersScreen = (props: NavigationDrawerScreenProps) => {
 
-    const { navigation } = props;
-
     const [isGlutenFree, setGlutenFree] = useState(false);
     const [isLactoseFree, setLactoseFree] = useState(false);
     const [isVegan, setVegan] = useState(false);

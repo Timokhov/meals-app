@@ -4,6 +4,8 @@ import { enableScreens } from 'react-native-screens';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 enableScreens();
 
@@ -23,7 +25,9 @@ export default function App() {
     }
 
     return (
-        <AppNavigator/>
+        <Provider store={ store }>
+            <AppNavigator/>
+        </Provider>
     );
 }
 

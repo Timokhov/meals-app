@@ -1,19 +1,40 @@
 import React from 'react';
 import { NavigationStackOptions, NavigationStackScreenProps } from 'react-navigation-stack';
 import MealsList from '../components/MealsList/MealsList';
-import { MEALS } from '../data/dummy-data';
 import { Meal } from '../models/meal';
 import { NavigationDrawerScreenProps } from 'react-navigation-drawer';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/CustomHeaderButton/CustomHeaderButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { Text, View, StyleSheet } from 'react-native';
+import DefaultText from '../components/DefaultText/DefaultText';
 
 const FavoriteScreen = (props: NavigationStackScreenProps) => {
-    const favMeals: Meal[] = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2');
+    const favMeals: Meal[] = useSelector(
+        (state: RootState) => state.mealsState.favoriteMeals
+    );
+
+    if (!favMeals || favMeals.length === 0) {
+       return (
+           <View style={ styles.emptyMessageContainer }>
+               <DefaultText>No Favorite meals found.</DefaultText>
+           </View>
+       )
+    }
 
     return (
         <MealsList listData={ favMeals } navigation={ props.navigation }/>
     );
 };
+
+const styles = StyleSheet.create({
+    emptyMessageContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+})
 
 FavoriteScreen.navigationOptions = (navigationData: NavigationDrawerScreenProps) => {
     return {

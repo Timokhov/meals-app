@@ -6,7 +6,7 @@ import { Category } from '../models/category';
 import CategoryItem from '../components/CategoryItem/CategoryItem';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/CustomHeaderButton/CustomHeaderButton';
-import { NavigationDrawerProp, NavigationDrawerScreenProps } from 'react-navigation-drawer';
+import { NavigationDrawerScreenProps } from 'react-navigation-drawer';
 
 const CategoriesScreen = (props: NavigationStackScreenProps) => {
 
@@ -31,13 +31,7 @@ const CategoriesScreen = (props: NavigationStackScreenProps) => {
     );
 };
 
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-});
+const styles = StyleSheet.create({});
 
 CategoriesScreen.navigationOptions = (navigationData: NavigationDrawerScreenProps) => {
     return {

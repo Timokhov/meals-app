@@ -1,13 +1,17 @@
 import React from 'react';
 import { NavigationStackOptions, NavigationStackScreenProps } from 'react-navigation-stack';
 import { Category } from '../models/category';
-import { MEALS } from '../data/dummy-data';
 import { Meal } from '../models/meal';
 import MealsList from '../components/MealsList/MealsList';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 const MealsScreen = (props: NavigationStackScreenProps) => {
     const category: Category = props.navigation.getParam('category');
-    const meals: Meal[] = MEALS.filter(meal => meal.categoryIds.indexOf(category.id) > -1);
+
+    const meals: Meal[] = useSelector(
+        (state: RootState) => state.mealsState.filteredMeals
+    );
 
     return (
         <MealsList listData={ meals } navigation={ props.navigation } />
