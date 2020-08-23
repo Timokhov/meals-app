@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableNativeFeedback, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableNativeFeedback, ImageBackground } from 'react-native';
 import { Category } from '../../models/category';
 
 interface CategoryItemProps {

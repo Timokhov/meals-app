@@ -12,17 +12,23 @@ const MealDetails = (props: MealDetailsProps) => {
     return (
         <View style={ styles.mealDetails }>
             <View style={{ ...styles.detailContainer, ...{ alignItems: 'flex-start' } }}>
-                <DefaultText style={{ color: props.textColor }}>{ props.meal.duration }m</DefaultText>
+                <DefaultText style={{ color: props.textColor }}>
+                    { props.meal.duration }m
+                </DefaultText>
             </View>
             <View style={{ ...styles.detailContainer, ...{ alignItems: 'center' } }}>
-                <DefaultText style={{ color: props.textColor }}>{ props.meal.complexity.toUpperCase() }</DefaultText>
+                <DefaultText style={{ color: props.textColor }}>
+                    { props.meal.complexity.toUpperCase() }
+                </DefaultText>
             </View>
             <View style={{ ...styles.detailContainer, ...{ alignItems: 'flex-end' } }}>
-                <DefaultText style={{ color: props.textColor }}>{ props.meal.affordability.toUpperCase() }</DefaultText>
+                <DefaultText style={{ color: props.textColor }}>
+                    { props.meal.affordability.toUpperCase() }
+                </DefaultText>
             </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     mealDetails: {
@@ -33,6 +39,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center'
     }
-})
+});
 
 export default MealDetails;

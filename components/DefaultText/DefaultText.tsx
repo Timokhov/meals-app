@@ -7,9 +7,7 @@ interface DefaultTextProps {
 }
 
 const DefaultText = (props: DefaultTextProps) => {
-    return (
-        <Text style={{ ...props.style, ...styles.defaultText }}>{ props.children }</Text>
-    );
+    return <Text style={{ ...props.style, ...styles.defaultText }}>{ props.children }</Text>;
 };
 
 const styles = StyleSheet.create({

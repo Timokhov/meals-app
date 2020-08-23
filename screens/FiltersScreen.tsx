@@ -1,13 +1,17 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useCallback, Dispatch } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { NavigationStackOptions } from 'react-navigation-stack';
 import { NavigationDrawerScreenProps } from 'react-navigation-drawer';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/CustomHeaderButton/CustomHeaderButton';
 import FilterSwitch from '../components/FilterSwitch/FilterSwitch';
-import { NavigationDrawerProp } from 'react-navigation-drawer/src/types';
+import { Action } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilters } from '../store/actions/meals.actions';
+import { RootState } from '../store/store';
+import { NavigationEvents } from 'react-navigation';
 
-interface Filters {
+export interface Filters {
     isGlutenFree: boolean,
     isLactoseFree: boolean,
     isVegan: boolean,
@@ -16,11 +20,42 @@ interface Filters {
 
 const FiltersScreen = (props: NavigationDrawerScreenProps) => {
 
+    const filtersState: Filters = useSelector(
+        (state: RootState) => state.mealsState.filters
+    );
+
     const [isGlutenFree, setGlutenFree] = useState(false);
     const [isLactoseFree, setLactoseFree] = useState(false);
     const [isVegan, setVegan] = useState(false);
     const [isVegetarian, setVegetarian] = useState(false);
 
+    const setFiltersFromState = () => {
+        setGlutenFree(filtersState.isGlutenFree);
+        setLactoseFree(filtersState.isLactoseFree);
+        setVegan(filtersState.isVegan);
+        setVegetarian(filtersState.isVegetarian);
+        props.navigation.setParams({
+            isFiltersChanged: false
+        });
+    };
+
+    useEffect(() => {
+        setFiltersFromState();
+    }, [filtersState]);
+
+    useEffect(() => {
+        const isFiltersChanged: boolean = filtersState.isGlutenFree !== isGlutenFree
+            || filtersState.isLactoseFree !== isLactoseFree
+            || filtersState.isVegan !== isVegan
+            || filtersState.isVegetarian !== isVegetarian;
+
+        props.navigation.setParams({
+            isFiltersChanged: isFiltersChanged
+        });
+    }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
+
+
+    const dispatch: Dispatch<Action> = useDispatch();
     const saveFilters = useCallback(() => {
         const appliedFilters: Filters = {
             isGlutenFree: isGlutenFree,
@@ -29,17 +64,18 @@ const FiltersScreen = (props: NavigationDrawerScreenProps) => {
             isVegetarian: isVegetarian
         };
 
-        console.log(appliedFilters);
+        dispatch(setFilters(appliedFilters));
     }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
 
     useEffect(() => {
         props.navigation.setParams({
-            save: saveFilters
+            saveFilters: saveFilters
         });
     }, [saveFilters]);
 
     return (
         <View style={ styles.screen }>
+            <NavigationEvents onDidBlur={ setFiltersFromState }/>
             <FilterSwitch label="Gluten-free"
                           value={ isGlutenFree }
                           onValueChange={ (newValue) => setGlutenFree(newValue) }
@@ -68,6 +104,8 @@ const styles = StyleSheet.create({
 });
 
 FiltersScreen.navigationOptions = (navigationData: NavigationDrawerScreenProps) => {
+    const saveFilters = navigationData.navigation.getParam('saveFilters');
+    const isFiltersChanged = navigationData.navigation.getParam('isFiltersChanged');
     return {
         headerTitle: 'Filters',
         headerLeft: () => {
@@ -79,14 +117,18 @@ FiltersScreen.navigationOptions = (navigationData: NavigationDrawerScreenProps) 
             );
         },
         headerRight: () => {
-            return (
-                <HeaderButtons HeaderButtonComponent={ CustomHeaderButton }>
-                    <Item title='Save' iconName='ios-save'
-                          onPress={ navigationData.navigation.getParam('save') }/>
-                </HeaderButtons>
-            );
+            if (isFiltersChanged) {
+                return (
+                    <HeaderButtons HeaderButtonComponent={ CustomHeaderButton }>
+                        <Item title='Save' iconName='ios-save'
+                              onPress={ saveFilters }/>
+                    </HeaderButtons>
+                );
+            } else {
+                return '';
+            }
         }
     } as NavigationStackOptions
-}
+};
 
 export default FiltersScreen;

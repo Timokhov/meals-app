@@ -10,7 +10,7 @@ export class Meal {
         public duration: number,
         public ingredients: string[],
         public steps: string[],
-        public igGlutenFree: boolean,
+        public isGlutenFree: boolean,
         public isVegan: boolean,
         public isVegetarian: boolean,
         public isLactoseFree: boolean

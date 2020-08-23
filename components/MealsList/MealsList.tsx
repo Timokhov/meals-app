@@ -2,27 +2,16 @@ import React from 'react';
 import { View, FlatList, StyleSheet, ListRenderItemInfo } from 'react-native';
 import { Meal } from '../../models/meal';
 import MealItem from '../MealItem/MealItem';
-import { StackNavigationProp } from 'react-navigation-stack/src/vendor/types';
-import { NavigationRoute } from 'react-navigation';
 
 interface MealsListProps {
     listData: Meal[],
-    navigation: StackNavigationProp<NavigationRoute, any>
+    onSelectMeal: (meal: Meal) => void
 }
 
 const MealsList = (props: MealsListProps) => {
 
-    const selectMeal = (meal: Meal) => {
-        props.navigation.navigate({
-            routeName: 'MealDetails',
-            params: {
-                meal: meal
-            }
-        });
-    };
-
     const renderMealItem = (itemInfo: ListRenderItemInfo<Meal>) => {
-        return <MealItem meal={ itemInfo.item } onSelect={ () => selectMeal(itemInfo.item) }/>
+        return <MealItem meal={ itemInfo.item } onSelect={ () => props.onSelectMeal(itemInfo.item) }/>
     }
 
     return (

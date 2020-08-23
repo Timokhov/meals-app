@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator, NavigationStackOptions } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, NavigationActions, NavigationResetAction, StackActions } from 'react-navigation';
 import { Ionicons } from 'expo-vector-icons';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import MealsScreen from '../screens/MealsScreen';
@@ -57,7 +57,18 @@ const TabsNavigator = createBottomTabNavigator(
                 tabBarIcon: tabInfo => {
                     return <Ionicons name='ios-restaurant' size={ 25 } color={ tabInfo.tintColor }/>
                 },
-                tabBarLabel: 'Meals'
+                tabBarLabel: 'Meals',
+                tabBarOnPress: ({ navigation }) => {
+                    const resetAction: NavigationResetAction = StackActions.reset({
+                        index: 0,
+                        key: null,
+                        actions: [
+                            NavigationActions.navigate({ routeName: 'Favorites' })
+                        ]
+                    });
+                    navigation.dispatch(resetAction);
+                    navigation.navigate(navigation.state.routeName);
+                }
             }
         },
         Favorites: {
@@ -66,7 +77,18 @@ const TabsNavigator = createBottomTabNavigator(
                 tabBarIcon: tabInfo => {
                     return <Ionicons name='ios-star' size={ 25 } color={ tabInfo.tintColor } />
                 },
-                tabBarLabel: 'Favorites'
+                tabBarLabel: 'Favorites',
+                tabBarOnPress: ({ navigation }) => {
+                    const resetAction: NavigationResetAction = StackActions.reset({
+                        index: 0,
+                        key: null,
+                        actions: [
+                            NavigationActions.navigate({ routeName: 'Categories' })
+                        ]
+                    });
+                    navigation.dispatch(resetAction);
+                    navigation.navigate(navigation.state.routeName);
+                }
             }
         }
     },
@@ -98,6 +120,7 @@ const DrawerNavigator = createDrawerNavigator(
     },
     {
         contentOptions: {
+            unmountInactiveRoutes: true,
             activeTintColor: colors.primaryColor,
             inactiveTintColor: '#ccc',
             labelStyle: {

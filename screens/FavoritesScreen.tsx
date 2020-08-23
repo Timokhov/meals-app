@@ -7,7 +7,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/CustomHeaderButton/CustomHeaderButton';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import DefaultText from '../components/DefaultText/DefaultText';
 
 const FavoriteScreen = (props: NavigationStackScreenProps) => {
@@ -15,16 +15,25 @@ const FavoriteScreen = (props: NavigationStackScreenProps) => {
         (state: RootState) => state.mealsState.favoriteMeals
     );
 
+    const selectMeal = (meal: Meal) => {
+        props.navigation.navigate({
+            routeName: 'MealDetails',
+            params: {
+                meal: meal
+            }
+        });
+    };
+
     if (!favMeals || favMeals.length === 0) {
        return (
            <View style={ styles.emptyMessageContainer }>
                <DefaultText>No Favorite meals found.</DefaultText>
            </View>
-       )
+       );
     }
 
     return (
-        <MealsList listData={ favMeals } navigation={ props.navigation }/>
+        <MealsList listData={ favMeals } onSelectMeal={ selectMeal }/>
     );
 };
 
@@ -34,7 +43,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     }
-})
+});
 
 FavoriteScreen.navigationOptions = (navigationData: NavigationDrawerScreenProps) => {
     return {
