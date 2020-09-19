@@ -9,6 +9,7 @@ import { View, StyleSheet } from 'react-native';
 import DefaultText from '../components/DefaultText/DefaultText';
 
 const MealsScreen = (props: NavigationStackScreenProps) => {
+
     const category: Category = props.navigation.getParam('category');
 
     const meals: Meal[] = useSelector(

@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { Filters } from '../../screens/FiltersScreen';
+import { Filters } from '../../models/filters';
 
 export enum MealsActionType {
     TOGGLE_FAVORITE = 'TOGGLE_FAVORITE',

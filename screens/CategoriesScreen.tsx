@@ -20,18 +20,16 @@ const CategoriesScreen = (props: NavigationStackScreenProps) => {
     }
 
     const renderCategoryItem = (itemInfo: ListRenderItemInfo<Category>) => {
-        return <CategoryItem category={ itemInfo.item } onSelect={ () => selectCategory(itemInfo.item) }/>;
+        return <CategoryItem category={ itemInfo.item }
+                             onSelect={ () => selectCategory(itemInfo.item) }/>;
     }
 
     return (
         <FlatList numColumns={ 2 }
                   data={ CATEGORIES }
-                  renderItem={ renderCategoryItem }
-        />
+                  renderItem={ renderCategoryItem }/>
     );
 };
-
-const styles = StyleSheet.create({});
 
 CategoriesScreen.navigationOptions = (navigationData: NavigationDrawerScreenProps) => {
     return {

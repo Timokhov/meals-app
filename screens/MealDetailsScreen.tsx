@@ -8,8 +8,8 @@ import { Meal } from '../models/meal';
 import CustomHeaderButton from '../components/CustomHeaderButton/CustomHeaderButton';
 import ListItem from '../components/ListItem/ListItem';
 import MealDetails from '../components/MealDetails/MealDetails';
-import { toggleFavorite } from '../store/actions/meals.actions';
 import { RootState } from '../store/store';
+import * as MealsActions from '../store/actions/meals.actions';
 
 const MealDetailsScreen = (props: NavigationStackScreenProps) => {
 
@@ -21,7 +21,7 @@ const MealDetailsScreen = (props: NavigationStackScreenProps) => {
 
     const dispatch: Dispatch<Action> = useDispatch();
     const dispatchToggleFavorite = useCallback(
-        () => dispatch(toggleFavorite(meal.id)),
+        () => dispatch(MealsActions.toggleFavorite(meal.id)),
         [dispatch, meal]
     );
 

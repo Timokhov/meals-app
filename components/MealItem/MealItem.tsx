@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback, ImageBackground } from 'react-native';
 import { Meal } from '../../models/meal';
-import DefaultText from '../DefaultText/DefaultText';
 import MealDetails from '../MealDetails/MealDetails';
 
 interface MealItemProps {

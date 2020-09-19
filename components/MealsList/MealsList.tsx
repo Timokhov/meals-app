@@ -18,8 +18,7 @@ const MealsList = (props: MealsListProps) => {
         <View style={ styles.mealsListContainer }>
             <FlatList style={ styles.mealsList }
                       data={ props.listData }
-                      renderItem={ renderMealItem }
-            />
+                      renderItem={ renderMealItem }/>
         </View>
     );
 };

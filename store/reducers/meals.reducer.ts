@@ -1,7 +1,7 @@
 import { MealsAction, MealsActionType, SetFiltersAction, ToggleFavoriteMealAction } from '../actions/meals.actions';
 import { Meal } from '../../models/meal';
 import { MEALS } from '../../data/dummy-data';
-import { Filters } from '../../screens/FiltersScreen';
+import { Filters } from '../../models/filters';
 
 export interface MealsState {
     meals: Meal[],

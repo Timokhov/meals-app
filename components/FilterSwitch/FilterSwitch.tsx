@@ -13,8 +13,7 @@ const FilterSwitch = (props: FilterSwitchProps) => {
         <View style={ styles.filterContainer }>
             <Text style={ styles.label }>{ props.label }</Text>
             <Switch value={ props.value }
-                    onValueChange={ props.onValueChange }
-            />
+                    onValueChange={ props.onValueChange }/>
         </View>
     );
 };

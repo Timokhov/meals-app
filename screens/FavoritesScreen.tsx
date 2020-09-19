@@ -11,6 +11,7 @@ import { View, StyleSheet } from 'react-native';
 import DefaultText from '../components/DefaultText/DefaultText';
 
 const FavoriteScreen = (props: NavigationStackScreenProps) => {
+
     const favMeals: Meal[] = useSelector(
         (state: RootState) => state.mealsState.favoriteMeals
     );

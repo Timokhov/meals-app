@@ -7,16 +7,10 @@ import CustomHeaderButton from '../components/CustomHeaderButton/CustomHeaderBut
 import FilterSwitch from '../components/FilterSwitch/FilterSwitch';
 import { Action } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilters } from '../store/actions/meals.actions';
 import { RootState } from '../store/store';
-import { NavigationEvents } from 'react-navigation';
-
-export interface Filters {
-    isGlutenFree: boolean,
-    isLactoseFree: boolean,
-    isVegan: boolean,
-    isVegetarian: boolean
-}
+import { NavigationEventSubscription } from 'react-navigation';
+import { Filters } from '../models/filters';
+import * as MealsActions from '../store/actions/meals.actions';
 
 const FiltersScreen = (props: NavigationDrawerScreenProps) => {
 
@@ -29,7 +23,7 @@ const FiltersScreen = (props: NavigationDrawerScreenProps) => {
     const [isVegan, setVegan] = useState(false);
     const [isVegetarian, setVegetarian] = useState(false);
 
-    const setFiltersFromState = () => {
+    const setFiltersFromState = useCallback(() => {
         setGlutenFree(filtersState.isGlutenFree);
         setLactoseFree(filtersState.isLactoseFree);
         setVegan(filtersState.isVegan);
@@ -37,11 +31,20 @@ const FiltersScreen = (props: NavigationDrawerScreenProps) => {
         props.navigation.setParams({
             isFiltersChanged: false
         });
-    };
+    }, [filtersState]);
 
     useEffect(() => {
         setFiltersFromState();
-    }, [filtersState]);
+        const willFocusSubscription: NavigationEventSubscription = props.navigation
+            .addListener(
+                'willFocus',
+                setFiltersFromState
+            );
+
+        return () => {
+            willFocusSubscription.remove();
+        }
+    }, [setFiltersFromState]);
 
     useEffect(() => {
         const isFiltersChanged: boolean = filtersState.isGlutenFree !== isGlutenFree
@@ -52,7 +55,7 @@ const FiltersScreen = (props: NavigationDrawerScreenProps) => {
         props.navigation.setParams({
             isFiltersChanged: isFiltersChanged
         });
-    }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
+    }, [filtersState, isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
 
 
     const dispatch: Dispatch<Action> = useDispatch();
@@ -64,7 +67,7 @@ const FiltersScreen = (props: NavigationDrawerScreenProps) => {
             isVegetarian: isVegetarian
         };
 
-        dispatch(setFilters(appliedFilters));
+        dispatch(MealsActions.setFilters(appliedFilters));
     }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
 
     useEffect(() => {
@@ -75,23 +78,18 @@ const FiltersScreen = (props: NavigationDrawerScreenProps) => {
 
     return (
         <View style={ styles.screen }>
-            <NavigationEvents onDidBlur={ setFiltersFromState }/>
             <FilterSwitch label="Gluten-free"
                           value={ isGlutenFree }
-                          onValueChange={ (newValue) => setGlutenFree(newValue) }
-            />
+                          onValueChange={ (newValue) => setGlutenFree(newValue) }/>
             <FilterSwitch label="Lactose-free"
                           value={ isLactoseFree }
-                          onValueChange={ (newValue) => setLactoseFree(newValue) }
-            />
+                          onValueChange={ (newValue) => setLactoseFree(newValue) }/>
             <FilterSwitch label="Vegan"
                           value={ isVegan }
-                          onValueChange={ (newValue) => setVegan(newValue) }
-            />
+                          onValueChange={ (newValue) => setVegan(newValue) }/>
             <FilterSwitch label="Vegetarian"
                           value={ isVegetarian }
-                          onValueChange={ (newValue) => setVegetarian(newValue) }
-            />
+                          onValueChange={ (newValue) => setVegetarian(newValue) }/>
         </View>
     );
 };
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
 
 FiltersScreen.navigationOptions = (navigationData: NavigationDrawerScreenProps) => {
     const saveFilters = navigationData.navigation.getParam('saveFilters');
-    const isFiltersChanged = navigationData.navigation.getParam('isFiltersChanged');
+    const isFiltersChanged: boolean = navigationData.navigation.getParam('isFiltersChanged');
     return {
         headerTitle: 'Filters',
         headerLeft: () => {

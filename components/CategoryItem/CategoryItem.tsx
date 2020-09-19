@@ -27,8 +27,8 @@ const CategoryItem = (props: CategoryItemProps) => {
 const styles = StyleSheet.create({
     categoryItem: {
         flex: 1,
-        margin: 15,
         height: 150,
+        margin: 15,
         borderRadius: 10,
         overflow: 'hidden',
         elevation: 5,
